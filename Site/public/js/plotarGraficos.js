@@ -80,7 +80,7 @@ function gerar(idEmpresa, idMaquina) {
 
                     console.log("Valor final disco: " + quantidadeDiscos);
                 
-                    if(quantidadeDiscos <= 2){
+                    if(quantidadeDiscos <= 3){
                         areaDiscoGeral.classList.remove("disco_rede");
                         areaDiscoGeral.classList.add("disco_rede2");
         
@@ -104,6 +104,7 @@ function gerar(idEmpresa, idMaquina) {
         });
     }
 
+    // criação temp
     function configurarGraficoMon(retorno, idComponente) {
         
         
@@ -115,7 +116,7 @@ function gerar(idEmpresa, idMaquina) {
         var nomeComponente = retorno[0].nomeComponente;
         var nomeSplit = nomeComponente.substring(0,3);
 
-        if(nomeSplit == "CPU" || nomeSplit == "RAM"){
+        if(nomeSplit == "CPU" || nomeSplit == "RAM" || nomeSplit == "Tem"){
 
             if(nomeSplit == "CPU"){
                 var areaCpu = document.getElementById("divGraficoCpu");
@@ -135,6 +136,16 @@ function gerar(idEmpresa, idMaquina) {
                 canvasRam.setAttribute("class", "cnvGrafico");
                 canvasRam.setAttribute("id", "graficoRam");
                 areaRam.append(canvasRam);
+            }
+
+            if(nomeSplit == "Tem"){
+                var areaTemp = document.getElementById("divGraficoTemp");
+
+                document.getElementById("graficoTemp").remove();
+                var canvasTemp = document.createElement("canvas");
+                canvasTemp.setAttribute("class", "cnvGrafico");
+                canvasTemp.setAttribute("id", "graficoTemp");
+                areaTemp.append(canvasTemp);
             }
 
             var vetorData = [];
@@ -288,9 +299,16 @@ function gerar(idEmpresa, idMaquina) {
                 document.getElementById(`graficoRam`),
                 config,
             );
-
+            
             setTimeout(() => atualizarGrafico(idEmpresa, idMaquina, idComponente, data), 5000);
 
+        }else if(nomeSplit == "Tem"){
+            var graficoMon = new Chart(
+                document.getElementById(`graficoTemp`), 
+                config,
+            );
+
+            setTimeout(() => atualizarGrafico(idEmpresa, idMaquina, idComponente, data), 5000);
         }else if(nomeSplit == "Dis"){
             var graficoMon = new Chart(
                 document.getElementById(`graficoDisco${retorno[0].fkComponente}`),
@@ -319,7 +337,7 @@ function gerar(idEmpresa, idMaquina) {
                         console.log(`Novo dado recebido: ${JSON.stringify(novoPonto)}`);
                         console.log(`Dados atuais do gŕafico: ${data}`);
 
-                        console.log("ME AJUDA SENHOR: " + data.datasets.length);
+                        console.log("" + data.datasets.length);
 
                         data.labels.shift();
                         data.labels.push(novoPonto[0].momento);
@@ -342,6 +360,7 @@ function gerar(idEmpresa, idMaquina) {
 
 }
 
+// parte de análise
 function graficosMedia(idMaquina) {
     var selecionado = idMaquina.value;
     fetch("/medidas/mediaUsoComponente").then(function (retorno) {
@@ -358,6 +377,7 @@ function graficosMedia(idMaquina) {
         }
     })
 
+    // parte de média fica na parte de análise
     function plotarGraficoMedia(retorno, idMaquina) {
         for (var i = 0; i < retorno.length; i++) {
 
@@ -531,7 +551,7 @@ function buscarInfoMaquina(idMaquina){
 
             })
         }else{
-            console.log("VAI TOMAR NO CUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUUU")
+            console.log("")
         }
     })
 }
