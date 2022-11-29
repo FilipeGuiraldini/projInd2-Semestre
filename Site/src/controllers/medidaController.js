@@ -50,7 +50,7 @@ function buscarComponentesMaquina(req, res){
     });
 
 }
-
+// levando o ultimo registro
 function buscarUltimosRegistros(req, res){
 
     const limite_linhas = 7;
