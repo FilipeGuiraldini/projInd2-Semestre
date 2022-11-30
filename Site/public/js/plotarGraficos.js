@@ -29,9 +29,6 @@ function plotarBotoes() {
     })
 }
 
-<<<<<<< Updated upstream
-function gerar(idEmpresa, idMaquina) {
-=======
 var qtdeVoltas = 0;
 
 function atualizarKpi(idEmpresa, idMaquina, fkComponente) {
@@ -109,10 +106,18 @@ function atualizarKpi(idEmpresa, idMaquina, fkComponente) {
 
 
 
->>>>>>> Stashed changes
+
+            })
+        } else {
+            console.error('Nada foi encontrado!');
+            proximaAtt = setTimeout(() => atualizarKpi(idEmpresa, idMaquina, fkComponente), 5000);
+        }
+    })
+}
 
 
-
+function gerar(idEmpresa, idMaquina) {
+    qtdeVoltas++;
     // Mexer quando for fazer os links para maquinas
     // plotarBotoes();
 
@@ -137,6 +142,7 @@ function atualizarKpi(idEmpresa, idMaquina, fkComponente) {
 
                 for (var i = 0; i < retorno.length; i++) {
                     gerarGrafico(retorno[i].fkComponente);
+                    atualizarKpi(idEmpresa, idMaquina, retorno[i].fkComponente);
                 }
                 // graficosMedia(idMaquina);
 
@@ -233,7 +239,7 @@ function atualizarKpi(idEmpresa, idMaquina, fkComponente) {
         // alert("Nome split da vez é: "+nomeSplit);
         console.log("TESTE HAHAHHAHAHAHAHAHAHAHAHAHAHA");
 
-       // repetirKPI(retorno, nomeSplit);
+        // repetirKPI(retorno, nomeSplit);
 
         if (nomeSplit == "CPU" || nomeSplit == "RAM" || nomeSplit == "Tem") {
 
@@ -455,8 +461,8 @@ function atualizarKpi(idEmpresa, idMaquina, fkComponente) {
             }).then(function (resposta) {
                 if (resposta.ok) {
                     resposta.json().then(function (novoPonto) {
-                        console.log(`Novo dado recebido: ${JSON.stringify(novoPonto)}`);
-                        console.log(`Dados atuais do gŕafico: ${data}`);
+                        // console.log(`Novo dado recebido: ${JSON.stringify(novoPonto)}`);
+                        // console.log(`Dados atuais do gŕafico: ${data}`);
 
                         console.log("" + data.datasets.length);
 
@@ -468,57 +474,7 @@ function atualizarKpi(idEmpresa, idMaquina, fkComponente) {
 
                         graficoMon.update('none');
                         // AQUI COMEÇA A BAGUNÇA CPU
-                     
-                        nomeSplit = novoPonto[0].nomeComponente.substring(0,3);
-                        if (nomeSplit == "CPU") {
-                            var tuplaCPU = novoPonto[0];
-                            if (tuplaCPU.registro <= 10) {
-                                mudacor = document.getElementById("coresId");
-                                mudacor.style.backgroundColor = "lightblue";
-                                //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
-                            } else if (tuplaCPU.registro >= 11 && tuplaCPU.registro < 21) {
-                                mudacor = document.getElementById("coresId");
-                                mudacor.style.backgroundColor = "#0ab1e9";
-                                //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
-                            } else if (tuplaCPU.registro >= 21 && tuplaCPU.registro < 61) {
-                                mudacor = document.getElementById("coresId");
-                                mudacor.style.backgroundColor = "#0ae97a";
-                                //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
-                            } else if (tuplaCPU.registro >= 61 && tuplaCPU.registro < 81) {
-                                mudacor = document.getElementById("coresId");
-                                mudacor.style.backgroundColor = "#e9da0a";
-                                //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
-                            } else {
-                                mudacor = document.getElementById("coresId");
-                                mudacor.style.backgroundColor = "#e90a0a";
-                                //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
-                            }
-                
-                        } else if (nomeSplit == "Tem") {
-                            var tuplaTem = novoPonto[0];
-                            if (tuplaTem.registro <= 10) {
-                                mudacor = document.getElementById("coresId2");
-                                mudacor.style.backgroundColor = "lightblue";
-                                //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
-                            } else if (tuplaTem.registro >= 11 && tuplaTem.registro < 21) {
-                                mudacor = document.getElementById("coresId2");
-                                mudacor.style.backgroundColor = "#0ab1e9";
-                                //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
-                            } else if (tuplaTem.registro >= 21 && tuplaTem.registro < 61) {
-                                mudacor = document.getElementById("coresId2");
-                                mudacor.style.backgroundColor = "#0ae97a";
-                                //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
-                            } else if (tuplaTem.registro >= 61 && tuplaTem.registro < 81) {
-                                mudacor = document.getElementById("coresId2");
-                                mudacor.style.backgroundColor = "#e9da0a";
-                                //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
-                            } else {
-                                mudacor = document.getElementById("coresId2");
-                                mudacor.style.backgroundColor = "#e90a0a";
-                                //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
-                            }
-                
-                        }
+
 
                         proximaAtt = setTimeout(() => atualizarGrafico(idEmpresa, idMaquina, idComponente, data), 5000);
                     })
@@ -528,7 +484,7 @@ function atualizarKpi(idEmpresa, idMaquina, fkComponente) {
                 }
             })
         }
-
+        //
     }
 
 }
