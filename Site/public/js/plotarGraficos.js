@@ -29,7 +29,87 @@ function plotarBotoes() {
     })
 }
 
+<<<<<<< Updated upstream
 function gerar(idEmpresa, idMaquina) {
+=======
+var qtdeVoltas = 0;
+
+function atualizarKpi(idEmpresa, idMaquina, fkComponente) {
+    fetch(`/medidas/registrosTempoReal/${idEmpresa}/${idMaquina}/${fkComponente}`, {
+        cache: 'no-store'
+    }).then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (novoPonto) {
+                console.log(`Novo dado recebido KPI: ${JSON.stringify(novoPonto)}`);
+
+
+                nomeSplit = novoPonto[0].nomeComponente.substring(0, 3);
+
+                //binchilin
+
+                    if (nomeSplit == "CPU") {
+                        // alert("AGUI: " + novoPonto[0].registro);
+                        var tuplaCPU = novoPonto[0];
+                        if (tuplaCPU.registro <= 10) {
+                            mudacor = document.getElementById("coresId");
+                            mudacor.style.backgroundColor = "lightblue";
+                            //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
+                        } else if (tuplaCPU.registro > 10 && tuplaCPU.registro < 21) {
+                            mudacor = document.getElementById("coresId");
+                            mudacor.style.backgroundColor = "#0ab1e9";
+                            //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
+                        } else if (tuplaCPU.registro >= 21 && tuplaCPU.registro < 61) {
+                            mudacor = document.getElementById("coresId");
+                            mudacor.style.backgroundColor = "#0ae97a";
+                            //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
+                        } else if (tuplaCPU.registro >= 61 && tuplaCPU.registro < 81) {
+                            mudacor = document.getElementById("coresId");
+                            mudacor.style.backgroundColor = "#e9da0a";
+                            //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
+                        } else {
+                            mudacor = document.getElementById("coresId");
+                            mudacor.style.backgroundColor = "#e90a0a";
+                            //   alert("O retorno da tuplaCPU.registro  foi: "+tuplaCPU.registro)
+                        }
+                        if (qtdeVoltas > 1) {
+                            clearTimeout(proximaAttCpu);
+                        }
+                        proximaAttCpu = setTimeout(() => atualizarKpi(idEmpresa, idMaquina, fkComponente), 5000);
+                    } else if (nomeSplit == "Tem") {
+                        // alert("Temp: " + novoPonto[0].registro);
+                        var tuplaTem = novoPonto[0];
+                        if (tuplaTem.registro <= 10) {
+                            mudacor = document.getElementById("coresId2");
+                            mudacor.style.backgroundColor = "lightblue";
+                            //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
+                        } else if (tuplaTem.registro > 10 && tuplaTem.registro < 21) {
+                            mudacor = document.getElementById("coresId2");
+                            mudacor.style.backgroundColor = "#0ab1e9";
+                            //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
+                        } else if (tuplaTem.registro >= 21 && tuplaTem.registro < 61) {
+                            mudacor = document.getElementById("coresId2");
+                            mudacor.style.backgroundColor = "#0ae97a";
+                            //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
+                        } else if (tuplaTem.registro >= 61 && tuplaTem.registro < 81) {
+                            mudacor = document.getElementById("coresId2");
+                            mudacor.style.backgroundColor = "#e9da0a";
+                            //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
+                        } else {
+                            mudacor = document.getElementById("coresId2");
+                            mudacor.style.backgroundColor = "#e90a0a";
+                            //   alert("O retorno da tuplaTem.registro  foi: "+tuplaTem.registro)
+                        }
+                        if (qtdeVoltas > 1) {
+                            clearTimeout(proximaAttTem);
+                        }
+
+                        proximaAttTem = setTimeout(() => atualizarKpi(idEmpresa, idMaquina, fkComponente), 5000);
+                    }
+                
+
+
+
+>>>>>>> Stashed changes
 
 
 
