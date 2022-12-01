@@ -44,6 +44,7 @@ public class Login extends javax.swing.JFrame {
     
     Componente compCpu = new Componente();
     Componente compRam = new Componente();
+    Componente compTemp = new Componente();
     List <Componente> discos2 = new ArrayList();
     
     ComponenteCrud componenteCrud = new ComponenteCrud();
@@ -246,6 +247,7 @@ public class Login extends javax.swing.JFrame {
             
                 List <Componente> listaCpu = componenteCrud.listarCpuMaquina(autenticacaoApi.getIdMaquina());
                 List <Componente> listaRam = componenteCrud.listarRamMaquina(autenticacaoApi.getIdMaquina());
+                List <Componente> listaTemp = componenteCrud.listarTempMaquina(autenticacaoApi.getIdMaquina());
                 List <Componente> listaDisco = componenteCrud.listarDiscosMaquina(autenticacaoApi.getIdMaquina());
                 
                 for(Componente cpu : listaCpu){
@@ -256,6 +258,10 @@ public class Login extends javax.swing.JFrame {
                     compRam = ram;
                 }
                 
+                for(Componente temp : listaTemp){
+                    compTemp = temp;
+                }
+                
                 for(Componente disco : listaDisco){
                     discos2.add(disco);
                 }
@@ -264,6 +270,7 @@ public class Login extends javax.swing.JFrame {
                 janela2.setIdMaquina(autenticacaoApi.getIdMaquina());
                 janela2.setCpu(compCpu);
                 janela2.setRam(compRam);
+                janela2.setTemp(compTemp);
                 janela2.setListaDisco(discos2);
                 janela2.setLocationRelativeTo(null);
                 janela2.setVisible(true);
